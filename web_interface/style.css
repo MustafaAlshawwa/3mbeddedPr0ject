@@ -1,0 +1,33 @@
+body {
+  font-family: sans-serif;
+  text-align: center;
+}
+
+#controls {
+  display: flex;
+  justify-content: space-around;
+  margin: 20px 0;
+}
+
+button {
+  padding: 10px;
+  font-size: 16px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+#forward {
+  background-color: green;
+}
+
+#backward {
+  background-color: orange;
+}
+
+#left, #right {
+  background-color: blue;
+}
+
+#stop {
+  background-color: red;
+}
