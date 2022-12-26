@@ -1,4 +1,4 @@
-const serverUrl = 'http://127.0.0.1:8000'; // Replace with the IP address of your NodeMCU
+const serverUrl = 'http://192.168.1.14'
 
 const buttons = document.querySelectorAll('button');
 buttons.forEach(button => {

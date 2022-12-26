@@ -28,6 +28,10 @@ void handleLeft() {
   Serial.print("Left Command\r\n");
 }
 
+void handleLCD() {
+  Serial.print(server.arg(0) + "\r\n");
+}
+
 void setup() {
   // Initialize motor pins as output
 //  pinMode(motor1Pin1, OUTPUT);
@@ -50,13 +54,13 @@ void setup() {
   server.on("/reverse", handleReverse);
   server.on("/left", handleLeft);
   server.on("/right", handleRight);
+  server.on("/lcd", handleLCD);
 
   server.begin();
-  Serial.println("Web server started");
+  Serial.println("Web server started\r\n");
   Serial.println(WiFi.localIP());
 }
 
 void loop() {
   server.handleClient();
 }
-
