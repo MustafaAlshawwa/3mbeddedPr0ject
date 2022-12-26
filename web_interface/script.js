@@ -1,18 +1,15 @@
-<html>
-  <head>
-    <title>Car Control</title>
-    <link rel="stylesheet" type="text/css" href="style.css">
-  </head>
-  <body>
-    <h1>Car Control</h1>
-    <div id="controls">
-      <button id="forward">Forward</button>
-      <button id="backward">Backward</button>
-      <button id="left">Left</button>
-      <button id="right">Right</button>
-      <button id="stop">Stop</button>
-    </div>
-    <p id="status"></p>
-    <script src="script.js"></script>
-  </body>
-</html>
+const serverUrl = 'http://127.0.0.1:8000'; // Replace with the IP address of your NodeMCU
+
+const buttons = document.querySelectorAll('button');
+buttons.forEach(button => {
+  button.addEventListener('click', event => {
+    const command = event.target.id;
+    sendCommand(command);
+  });
+});
+
+function sendCommand(command) {
+  const xhr = new XMLHttpRequest();
+  xhr.open('GET', `${serverUrl}/${command}`, true);
+  xhr.send(null);
+}
