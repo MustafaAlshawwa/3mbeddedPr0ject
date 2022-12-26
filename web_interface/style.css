@@ -1,6 +1,7 @@
 body {
   font-family: sans-serif;
   text-align: center;
+  background-color: #0cb14b
 }
 
 #controls {
@@ -9,11 +10,29 @@ body {
   margin: 20px 0;
 }
 
+input[type=text] {
+  border: 2px solid #425795;
+  border-radius: 4px;
+  width: 500px;
+  height: 250px;
+  box-sizing: border-box;
+}
+
 button {
   padding: 10px;
   font-size: 16px;
   border-radius: 5px;
   cursor: pointer;
+}
+
+h3, h2, h1
+{
+  color: #ffffff;
+}
+
+p {
+  text-align: left;
+  margin: 35px;
 }
 
 #forward {
@@ -24,10 +43,10 @@ button {
   background-color: orange;
 }
 
-#left, #right {
+#left {
   background-color: blue;
 }
 
-#stop {
+#right {
   background-color: red;
 }

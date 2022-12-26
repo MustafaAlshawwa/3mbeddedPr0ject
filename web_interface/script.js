@@ -9,7 +9,29 @@ buttons.forEach(button => {
 });
 
 function sendCommand(command) {
+  document.getElementById("status").innerHTML = command;
   const xhr = new XMLHttpRequest();
   xhr.open('GET', `${serverUrl}/${command}`, true);
   xhr.send(null);
 }
+
+  // Add event listeners to the document to listen for key presses
+  document.addEventListener('keydown', event => {
+    // Check which key was pressed and send the corresponding command
+    switch (event.key) {
+      case 'ArrowUp':
+        sendCommand('forward');
+        break;
+      case 'ArrowLeft':
+        sendCommand('left');
+        break;
+      case 'ArrowRight':
+        sendCommand('right');
+        break;
+      case 'ArrowDown':
+        sendCommand('reverse');
+        break;
+      default:
+        break;
+    }
+  });
