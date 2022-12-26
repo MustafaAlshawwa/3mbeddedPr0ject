@@ -8,11 +8,26 @@ buttons.forEach(button => {
   });
 });
 
+var btn = document.getElementById("LCD Data");
+// add event listener for the button, for action "click"
+btn.addEventListener("click", sendData);
+
+function sendData() {
+  const textbox = document.getElementById("TextBox").value;
+  document.getElementById("status").innerHTML = 'Sent "' + textbox + '" to LCD';
+  url = serverUrl + "/lcd?content=" + textbox;
+  const xhr = new XMLHttpRequest();
+  xhr.open('GET', url, true);
+  xhr.send(null);
+
+}
+
 function sendCommand(command) {
   document.getElementById("status").innerHTML = command;
   const xhr = new XMLHttpRequest();
   xhr.open('GET', `${serverUrl}/${command}`, true);
   xhr.send(null);
+
 }
 
   // Add event listeners to the document to listen for key presses
