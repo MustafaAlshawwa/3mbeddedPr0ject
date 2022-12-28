@@ -1,64 +1,100 @@
 #include <ESP8266WiFi.h>
 #include <ESP8266WebServer.h>
+#include <Wire.h>
+#include <LiquidCrystal_I2C.h>
 
-const char* ssid = "Villa Al-Aziz (Hamza)";
-const char* password = "Saralona1996";
+//  WiFi credentials
+const char* ssid = "OrangeFlybox_1FD4";
+const char* password = "70323320";
 
-// Motor driver pins
-//const int motor1Pin1 = D1;
-//const int motor1Pin2 = D2;
-//const int motor2Pin1 = D3;
-//const int motor2Pin2 = D4;
+// movement signal pins
+const int RC5 = D5;
+const int RC6 = D6;
+const int RC7 = D7;
 
 ESP8266WebServer server(80);
 
-void handleForward() {
-  Serial.print("Forward Command\r\n");
+LiquidCrystal_I2C lcd(0x27,16,2);
+
+void handleStop() {
+  digitalWrite(RC5, 0);
+}
+
+void handleForward() {  
+  digitalWrite(RC5, 1);
+  digitalWrite(RC6, 1);
+  digitalWrite(RC7, 1);
+  delay(250);
+  digitalWrite(RC5, 0);
 }
 
 void handleReverse() {
-  Serial.print("Reverse Command\r\n");
+  digitalWrite(RC5, 1);
+  digitalWrite(RC6, 0);
+  digitalWrite(RC7, 0);
+  delay(250);
+  digitalWrite(RC5, 0);
 }
 
 void handleRight() {
-  Serial.print("Right Command\r\n");
+  digitalWrite(RC5, 1);
+  digitalWrite(RC6, 0);
+  digitalWrite(RC7, 1);
+  delay(250);
+  digitalWrite(RC5, 0);
 }
 
 void handleLeft() {
-  Serial.print("Left Command\r\n");
+  digitalWrite(RC5, 1);
+  digitalWrite(RC6, 1);
+  digitalWrite(RC7, 0);
+  delay(250);
+  digitalWrite(RC5, 0);
 }
 
 void handleLCD() {
+  lcd.setCursor(0,0);
+  lcd.clear();
+  lcd.print(server.arg(0));
   Serial.print(server.arg(0) + "\r\n");
 }
 
 void setup() {
-  // Initialize motor pins as output
-//  pinMode(motor1Pin1, OUTPUT);
-//pinMode(motor1Pin2, OUTPUT);
-//pinMode(motor2Pin1, OUTPUT);
-//pinMode(motor2Pin2, OUTPUT);
+//  Init Signal pins as output
+  pinMode(RC5, OUTPUT);
+  pinMode(RC6, OUTPUT);
+  pinMode(RC7, OUTPUT);
 
+//  Init LCD  
+  lcd.init(); 
+  lcd.backlight();
+  
+
+//  Init WiFi
   WiFi.begin(ssid, password);
   Serial.begin(9600);
 
+//  Print on serial until Connection
   while (WiFi.status() != WL_CONNECTED) {
     delay(500);
     Serial.print(".");
   }
-
   Serial.println("");
   Serial.println("WiFi connected");
 
+//  Init server commands
   server.on("/forward", handleForward);
   server.on("/reverse", handleReverse);
   server.on("/left", handleLeft);
   server.on("/right", handleRight);
   server.on("/lcd", handleLCD);
 
+// Begin Server
   server.begin();
   Serial.println("Web server started\r\n");
   Serial.println(WiFi.localIP());
+  lcd.clear();
+  lcd.print(WiFi.localIP());
 }
 
 void loop() {
