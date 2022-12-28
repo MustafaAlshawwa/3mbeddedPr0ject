@@ -1,3 +1,4 @@
+let last_used_command = "a";
 const serverUrl = 'http://192.168.1.14'
 
 const buttons = document.querySelectorAll('button');
@@ -35,18 +36,36 @@ function sendCommand(command) {
     // Check which key was pressed and send the corresponding command
     switch (event.key) {
       case 'ArrowUp':
-        sendCommand('forward');
+        if (last_used_command != "forward"){
+          last_used_command = "forward";
+          sendCommand('forward');
+        }
         break;
       case 'ArrowLeft':
-        sendCommand('left');
+        if (last_used_command != "left"){
+          last_used_command = "left";
+          sendCommand('left');
+        }
         break;
       case 'ArrowRight':
-        sendCommand('right');
+        if (last_used_command != "right"){
+          last_used_command = "right";
+          sendCommand('right');
+        }
         break;
       case 'ArrowDown':
-        sendCommand('reverse');
+        if (last_used_command != "reverse"){
+          last_used_command = "reverse";
+          sendCommand('reverse');
+        }
+  
         break;
       default:
         break;
     }
+  });
+
+  document.addEventListener('keyup', (event) => {
+    last_used_command = "stop";
+    sendCommand('stop');
   });

@@ -21,35 +21,27 @@ void handleStop() {
 }
 
 void handleForward() {  
-  digitalWrite(RC5, 1);
-  digitalWrite(RC6, 1);
-  digitalWrite(RC7, 1);
-  delay(250);
-  digitalWrite(RC5, 0);
+  digitalWrite(RC5, HIGH);
+  digitalWrite(RC6, HIGH);
+  digitalWrite(RC7, HIGH);
 }
 
 void handleReverse() {
-  digitalWrite(RC5, 1);
-  digitalWrite(RC6, 0);
-  digitalWrite(RC7, 0);
-  delay(250);
-  digitalWrite(RC5, 0);
+  digitalWrite(RC5, HIGH);
+  digitalWrite(RC6, LOW);
+  digitalWrite(RC7, LOW);
 }
 
 void handleRight() {
-  digitalWrite(RC5, 1);
-  digitalWrite(RC6, 0);
-  digitalWrite(RC7, 1);
-  delay(250);
-  digitalWrite(RC5, 0);
+  digitalWrite(RC5, HIGH);
+  digitalWrite(RC6, LOW);
+  digitalWrite(RC7, HIGH);
 }
 
 void handleLeft() {
-  digitalWrite(RC5, 1);
-  digitalWrite(RC6, 1);
-  digitalWrite(RC7, 0);
-  delay(250);
-  digitalWrite(RC5, 0);
+  digitalWrite(RC5, HIGH);
+  digitalWrite(RC6, HIGH);
+  digitalWrite(RC7, LOW);
 }
 
 void handleLCD() {
@@ -87,6 +79,7 @@ void setup() {
   server.on("/reverse", handleReverse);
   server.on("/left", handleLeft);
   server.on("/right", handleRight);
+  server.on("/stop", handleStop);
   server.on("/lcd", handleLCD);
 
 // Begin Server
