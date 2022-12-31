@@ -1,5 +1,5 @@
 let last_used_command = "a";
-const serverUrl = 'http://192.168.1.14'
+const serverUrl = 'http://192.168.1.100'
 
 const buttons = document.querySelectorAll('button');
 buttons.forEach(button => {
@@ -26,9 +26,11 @@ function sendData() {
 function sendCommand(command) {
   document.getElementById("status").innerHTML = command;
   const xhr = new XMLHttpRequest();
-  xhr.open('GET', `${serverUrl}/${command}`, true);
-  xhr.send(null);
-
+  for (let i = 0; i < 10; i++)
+  {
+    xhr.open('GET', `${serverUrl}/${command}`, true);
+    xhr.send(null);
+  }
 }
 
   // Add event listeners to the document to listen for key presses
